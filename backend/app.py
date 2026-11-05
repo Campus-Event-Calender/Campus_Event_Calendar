@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from pathlib import Path
-from .database import init_db
+from .database import DB_PATH, init_db
 from .routes.events import events_bp
 from .routes.rsvp import rsvp_bp
 from .routes.reports import reports_bp
@@ -11,6 +11,7 @@ FRONTEND_DIR = BASE_DIR / "frontend"
 
 def create_app(test_db=None):
     app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
+    app.config["DATABASE"] = test_db or DB_PATH
     CORS(app)
     init_db(test_db, seed=(test_db is None))
 

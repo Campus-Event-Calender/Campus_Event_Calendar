@@ -1,5 +1,6 @@
 import sqlite3
 from pathlib import Path
+from flask import current_app, has_app_context
 
 DB_PATH = Path(__file__).resolve().parent / "campus_events.db"
 
@@ -40,6 +41,8 @@ CREATE TABLE IF NOT EXISTS attendance (
 """
 
 def get_db(path=None):
+    if path is None and has_app_context():
+        path = current_app.config.get("DATABASE")
     conn = sqlite3.connect(path or DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")

@@ -19,6 +19,9 @@ K Prashanthi
 - Flask REST API
 - Pytest API tests
 
+## Security
+The current application has no administrator authentication or authorization. Event creation, editing, and deletion endpoints are publicly accessible; hiding their buttons in the interface would not secure them. Before deployment, add server-enforced administrator login and role checks (for example, secure sessions with password hashing and CSRF protection), and protect the event-management API routes with those checks. Public event viewing and RSVP behavior can remain separate.
+
 ## Tech Stack
 - Frontend: HTML, CSS, JavaScript
 - Calendar: FullCalendar
